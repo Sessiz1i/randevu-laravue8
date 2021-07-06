@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\front\homeController;
+use App\Http\Controllers\admin\indexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,17 @@ use App\Http\Controllers\front\homeController;
 |
 */
 
-Route::get('/',[homeController::class,'index']);
+Route::get('/',[App\Http\Controllers\front\homeController::class,'index']);
+Route::group(['prefix' => 'cron',], function (){
+Route::get('/reminder',function (){
+    Artisan::call('Reminder:Start');
+});
+});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'admin','namespace' => 'admin', 'as' => 'admin.','middleware' => 'auth'],function (){
+   Route::get('/',[App\Http\Controllers\admin\indexController::class,'index'])->name('dashboard');
+   Route::get('/working',[App\Http\Controllers\admin\indexController::class,'working'])->name('working');
+});

@@ -6,9 +6,8 @@
 
 require('./bootstrap');
 
-/*window.Vue = require('vue').default;
 
-/!**
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
@@ -25,19 +24,24 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
- *!/
+ */
 
-const app = new Vue({
-    el: '#app',
-});*/
+
 import Vue from 'vue'
-import router from "../../routes";
 import VueMask from 'v-mask'
+import VueResource from 'vue-resource'
 
 
 Vue.config.productionTip = false
 Vue.use(VueMask)
+Vue.component('pagination', require('laravel-vue-pagination'));
+// Index Component
+Vue.component('randevu-index',require('./components/front/RandevuForm').default);
+// Admin Component
+Vue.component('working-item',require('./components/admin/AdminWorkingItem').default);
+Vue.component('admin-index',require('./components/admin/Index').default);
+Vue.component('admin-working',require('./components/admin/AdminWorking').default);
 new Vue({
-    router,
+    VueResource,
 }).$mount('#app')
 

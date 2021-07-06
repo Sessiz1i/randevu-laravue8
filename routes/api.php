@@ -20,7 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'api'],function (){
-    Route::get('/working-hours/{date?}',[indexController::class,'getworkingHours']);
+    Route::get('/working-hours/{date?}',[indexController::class,'getWorkingHours']);
+    Route::post('/appointment-store',[indexController::class,'appointmentStore']);
 
+
+    Route::group(['namespace' => 'admin','prefix' => 'admin'],function (){
+        Route::get('/all',[\App\Http\Controllers\api\admin\indexController::class,'all']);
+        Route::post('/confirmation',[\App\Http\Controllers\api\admin\indexController::class,'confirmation']);
+        Route::post('/working-hour-store',[\App\Http\Controllers\api\admin\workingHourController::class,'workingHourStore']);
+        Route::get('/working-hour-list',[\App\Http\Controllers\api\admin\workingHourController::class,'getWorkingList']);
+
+
+
+    });
 
 });

@@ -128,15 +128,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RandevuForm",
   data: function data() {
@@ -179,6 +170,8 @@ __webpack_require__.r(__webpack_exports__);
           notification_type: this.notification_type,
           date: this.date
         }).then(function (res) {
+          console.log(res.data);
+
           if (res.data.status === false) {
             _this2.feedbacks.push({
               code: "error",
@@ -775,417 +768,404 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "svg",
-      {
-        staticStyle: { display: "none" },
-        attrs: { xmlns: "http://www.w3.org/2000/svg" }
-      },
-      [
-        _c(
-          "symbol",
-          {
-            attrs: {
-              id: "check-circle-fill",
-              fill: "currentColor",
-              viewBox: "0 0 16 16"
-            }
-          },
-          [
-            _c("path", {
-              attrs: {
-                d:
-                  "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
-              }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "symbol",
-          {
-            attrs: {
-              id: "info-fill",
-              fill: "currentColor",
-              viewBox: "0 0 16 16"
-            }
-          },
-          [
-            _c("path", {
-              attrs: {
-                d:
-                  "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
-              }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "symbol",
-          {
-            attrs: {
-              id: "exclamation-triangle-fill",
-              fill: "currentColor",
-              viewBox: "0 0 16 16"
-            }
-          },
-          [
-            _c("path", {
-              attrs: {
-                d:
-                  "M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-              }
-            })
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    this.feedbacks.length > 0
+    _vm.complateForm == false
       ? _c("div", [
-          _c("ul", [
+          _c("i", {
+            staticClass:
+              "far fa-check-circle text-success text-center mx-auto col-md-12",
+            staticStyle: { "font-size": "250px", "font-weight": "bolder" }
+          })
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-9 mx-auto" }, [
+      this.feedbacks.length > 0
+        ? _c("div", [
             _c(
               "div",
               {
-                staticClass: "alert align-items-center",
-                class:
-                  this.feedbacks[0].code === "error"
-                    ? "alert-danger"
-                    : "alert-success",
+                staticClass: "alert",
+                class: this.feedbacks[0].code === "error" ? "alert-danger" : "",
                 attrs: { role: "alert" }
               },
               _vm._l(_vm.feedbacks, function(item, i) {
-                return _c("li", { key: i }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi flex-shrink-0",
-                      attrs: {
-                        width: "24",
-                        height: "24",
-                        role: "img",
-                        "aria-label":
-                          item.code === "error" ? "Danger:" : "Success:"
-                      }
-                    },
-                    [
-                      _c("use", {
-                        attrs: {
-                          "xlink:href":
-                            item.code === "success"
-                              ? "#check-circle-fill"
-                              : "#exclamation-triangle-fill"
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v("   " + _vm._s(item.message))])
-                ])
+                return _c(
+                  "li",
+                  {
+                    key: i,
+                    staticClass: " ",
+                    class:
+                      _vm.feedbacks[0].code === "error"
+                        ? "d-flex align-items-center"
+                        : "text-success text-center h4",
+                    staticStyle: { "font-weight": "bolder" }
+                  },
+                  [
+                    _c(
+                      "i",
+                      {
+                        staticClass: " fa-lg",
+                        class:
+                          _vm.feedbacks[0].code === "error"
+                            ? "fas fa-times"
+                            : ""
+                      },
+                      [_vm._v(" ")]
+                    ),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(item.message))])
+                  ]
+                )
               }),
               0
             )
           ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticClass: "card col-md-9 mx-auto" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "card-title h2" }, [
-          _vm._v("Randevu Oluştur")
-        ]),
-        _vm._v(" "),
-        _vm.complateForm
-          ? _c("div", [
-              _c(
-                "div",
-                { staticClass: "row" },
-                [
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.name,
-                            expression: "name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "İsim Soyisim Giriniz..."
-                        },
-                        domProps: { value: _vm.name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.complateForm
+        ? _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "card-title h2" }, [
+                _vm._v("Randevu Oluştur")
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "div",
+                  { staticClass: "row" },
+                  [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.name,
+                              expression: "name"
                             }
-                            _vm.name = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.email,
-                            expression: "email"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "email",
-                          placeholder: "E-mail Giriniz..."
-                        },
-                        domProps: { value: _vm.email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.email = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "mask",
-                            rawName: "v-mask",
-                            value: "##-###-###-##-##",
-                            expression: "'##-###-###-##-##'"
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "İsim Soyisim Giriniz..."
                           },
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.phone,
-                            expression: "phone"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "tel",
-                          placeholder: "Telefon Numarası Giriniz..."
-                        },
-                        domProps: { value: _vm.phone },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                          domProps: { value: _vm.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.name = $event.target.value
                             }
-                            _vm.phone = $event.target.value
                           }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.date,
-                            expression: "date"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "date", min: _vm.toDay },
-                        domProps: { value: _vm.date },
-                        on: {
-                          change: _vm.selectDate,
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.email,
+                              expression: "email"
                             }
-                            _vm.date = $event.target.value
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "email",
+                            placeholder: "E-mail Giriniz..."
+                          },
+                          domProps: { value: _vm.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.email = $event.target.value
+                            }
                           }
-                        }
-                      })
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "mask",
+                              rawName: "v-mask",
+                              value: "##-###-###-##-##",
+                              expression: "'##-###-###-##-##'"
+                            },
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.phone,
+                              expression: "phone"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "tel",
+                            placeholder: "Telefon Numarası Giriniz..."
+                          },
+                          domProps: { value: _vm.phone },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.phone = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.date,
+                              expression: "date"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", min: _vm.toDay },
+                          domProps: { value: _vm.date },
+                          on: {
+                            change: _vm.selectDate,
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.date = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.workingHours, function(data, i) {
+                      return _c(
+                        "div",
+                        { key: i, staticClass: "col-6 col-md-4 col-xl-3" },
+                        [
+                          _c("ul", { staticClass: "list-group" }, [
+                            _c("li", { staticClass: "mb-1 list-group" }, [
+                              _c("div", { staticClass: "card" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-check-label",
+                                    attrs: { for: "hour-" + i }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "card-body py-2" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-check" },
+                                          [
+                                            data.isActive
+                                              ? _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value: _vm.workingHour,
+                                                      expression: "workingHour"
+                                                    }
+                                                  ],
+                                                  staticClass:
+                                                    "form-check-input",
+                                                  attrs: {
+                                                    type: "radio",
+                                                    id: "hour-" + i
+                                                  },
+                                                  domProps: {
+                                                    value: data.id,
+                                                    checked: _vm._q(
+                                                      _vm.workingHour,
+                                                      data.id
+                                                    )
+                                                  },
+                                                  on: {
+                                                    change: function($event) {
+                                                      _vm.workingHour = data.id
+                                                    }
+                                                  }
+                                                })
+                                              : _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value: _vm.workingHour,
+                                                      expression: "workingHour"
+                                                    }
+                                                  ],
+                                                  staticClass:
+                                                    "form-check-input text-decoration-line-through",
+                                                  attrs: {
+                                                    disabled: "",
+                                                    type: "radio",
+                                                    id: "hour-" + i
+                                                  },
+                                                  domProps: {
+                                                    value: data.id,
+                                                    checked: _vm._q(
+                                                      _vm.workingHour,
+                                                      data.id
+                                                    )
+                                                  },
+                                                  on: {
+                                                    change: function($event) {
+                                                      _vm.workingHour = data.id
+                                                    }
+                                                  }
+                                                }),
+                                            _vm._v(" "),
+                                            data.isActive
+                                              ? _c("span", [
+                                                  _vm._v(_vm._s(data.hours))
+                                                ])
+                                              : _c(
+                                                  "span",
+                                                  {
+                                                    staticStyle: {
+                                                      "text-decoration":
+                                                        "line-through"
+                                                    }
+                                                  },
+                                                  [_vm._v(_vm._s(data.hours))]
+                                                )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          ])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12 mt-2" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.text,
+                              expression: "text"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            rows: "5",
+                            placeholder: "Notunuzu Ekleyebilirsiniz..."
+                          },
+                          domProps: { value: _vm.text },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.text = $event.target.value
+                            }
+                          }
+                        })
+                      ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.workingHours, function(data, i) {
-                    return _c(
-                      "div",
-                      { key: i, staticClass: "col-6 col-md-4 col-xl-3" },
-                      [
-                        _c("ul", { staticClass: "list-group" }, [
-                          _c("li", { staticClass: "mb-1 list-group" }, [
-                            _c("div", { staticClass: "card" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "form-check-label",
-                                  attrs: { for: "hour-" + i }
-                                },
-                                [
-                                  _c("div", { staticClass: "card-body py-2" }, [
-                                    _c("div", { staticClass: "form-check" }, [
-                                      data.isActive
-                                        ? _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: _vm.workingHour,
-                                                expression: "workingHour"
-                                              }
-                                            ],
-                                            staticClass: "form-check-input",
-                                            attrs: {
-                                              type: "radio",
-                                              id: "hour-" + i
-                                            },
-                                            domProps: {
-                                              value: data.id,
-                                              checked: _vm._q(
-                                                _vm.workingHour,
-                                                data.id
-                                              )
-                                            },
-                                            on: {
-                                              change: function($event) {
-                                                _vm.workingHour = data.id
-                                              }
-                                            }
-                                          })
-                                        : _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: _vm.workingHour,
-                                                expression: "workingHour"
-                                              }
-                                            ],
-                                            staticClass:
-                                              "form-check-input text-decoration-line-through",
-                                            attrs: {
-                                              disabled: "",
-                                              type: "radio",
-                                              id: "hour-" + i
-                                            },
-                                            domProps: {
-                                              value: data.id,
-                                              checked: _vm._q(
-                                                _vm.workingHour,
-                                                data.id
-                                              )
-                                            },
-                                            on: {
-                                              change: function($event) {
-                                                _vm.workingHour = data.id
-                                              }
-                                            }
-                                          }),
-                                      _vm._v(" "),
-                                      data.isActive
-                                        ? _c("span", [
-                                            _vm._v(_vm._s(data.hours))
-                                          ])
-                                        : _c(
-                                            "span",
-                                            {
-                                              staticStyle: {
-                                                "text-decoration":
-                                                  "line-through"
-                                              }
-                                            },
-                                            [_vm._v(_vm._s(data.hours))]
-                                          )
-                                    ])
-                                  ])
-                                ]
-                              )
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-6 col-md-4 col-xl-3" }, [
+                    _c("ul", { staticClass: "list-group" }, [
+                      _c("li", { staticClass: "mb-1 list-group" }, [
+                        _c("div", { staticClass: "card" }, [
+                          _c("label", { staticClass: "form-check-label" }, [
+                            _c("div", { staticClass: "card-body py-2" }, [
+                              _c("div", { staticClass: "form-check" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.notification_type,
+                                      expression: "notification_type"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: { value: "0", type: "radio" },
+                                  domProps: {
+                                    checked: _vm._q(_vm.notification_type, "0")
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      _vm.notification_type = "0"
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Sms")])
+                              ])
                             ])
                           ])
                         ])
-                      ]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12 mt-2" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.text,
-                            expression: "text"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "date",
-                          rows: "5",
-                          placeholder: "Notunuzu Ekleyebilirsiniz..."
-                        },
-                        domProps: { value: _vm.text },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.text = $event.target.value
-                          }
-                        }
-                      })
+                      ])
                     ])
-                  ])
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-6 col-md-4 col-xl-3" }, [
-                  _c("ul", { staticClass: "list-group" }, [
-                    _c("li", { staticClass: "mb-1 list-group" }, [
-                      _c("div", { staticClass: "card" }, [
-                        _c("label", { staticClass: "form-check-label" }, [
-                          _c("div", { staticClass: "card-body py-2" }, [
-                            _c("div", { staticClass: "form-check" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.notification_type,
-                                    expression: "notification_type"
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6 col-md-4 col-xl-3" }, [
+                    _c("ul", { staticClass: "list-group" }, [
+                      _c("li", { staticClass: "mb-1 list-group" }, [
+                        _c("div", { staticClass: "card" }, [
+                          _c("label", { staticClass: "form-check-label" }, [
+                            _c("div", { staticClass: "card-body py-2" }, [
+                              _c("div", { staticClass: "form-check" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.notification_type,
+                                      expression: "notification_type"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: { value: "1", type: "radio" },
+                                  domProps: {
+                                    checked: _vm._q(_vm.notification_type, "1")
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      _vm.notification_type = "1"
+                                    }
                                   }
-                                ],
-                                staticClass: "form-check-input",
-                                attrs: { value: "0", type: "radio" },
-                                domProps: {
-                                  checked: _vm._q(_vm.notification_type, "0")
-                                },
-                                on: {
-                                  change: function($event) {
-                                    _vm.notification_type = "0"
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Sms")])
+                                }),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Email")])
+                              ])
                             ])
                           ])
                         ])
@@ -1194,63 +1174,26 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-6 col-md-4 col-xl-3" }, [
-                  _c("ul", { staticClass: "list-group" }, [
-                    _c("li", { staticClass: "mb-1 list-group" }, [
-                      _c("div", { staticClass: "card" }, [
-                        _c("label", { staticClass: "form-check-label" }, [
-                          _c("div", { staticClass: "card-body py-2" }, [
-                            _c("div", { staticClass: "form-check" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.notification_type,
-                                    expression: "notification_type"
-                                  }
-                                ],
-                                staticClass: "form-check-input",
-                                attrs: { value: "1", type: "radio" },
-                                domProps: {
-                                  checked: _vm._q(_vm.notification_type, "1")
-                                },
-                                on: {
-                                  change: function($event) {
-                                    _vm.notification_type = "1"
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Email")])
-                            ])
-                          ])
-                        ])
-                      ])
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12 mt-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-outline-success btn-block text-uppercase",
+                          attrs: { type: "submit" },
+                          on: { click: _vm.store }
+                        },
+                        [_vm._v("Randevu oluştur")]
+                      )
                     ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12 mt-2" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-outline-success btn-block text-uppercase",
-                        attrs: { type: "submit" },
-                        on: { click: _vm.store }
-                      },
-                      [_vm._v("Randevu oluştur")]
-                    )
                   ])
                 ])
               ])
             ])
-          : _vm._e()
-      ])
+          ])
+        : _vm._e()
     ])
   ])
 }
@@ -1268,119 +1211,6 @@ var staticRenderFns = [
 ]
 render._withStripped = true
 
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ normalizeComponent)
-/* harmony export */ });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        )
-      }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functional component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
 
 
 /***/ })
