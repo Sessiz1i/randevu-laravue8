@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'api'],function (){
     Route::get('/working-hours/{date?}',[indexController::class,'getWorkingHours']);
     Route::post('/appointment-store',[indexController::class,'appointmentStore']);
+    Route::post('/appointment-detail',[indexController::class,'appointmentDetail']);
 
 
     Route::group(['namespace' => 'admin','prefix' => 'admin'],function (){
@@ -29,6 +30,7 @@ Route::group(['namespace' => 'api'],function (){
         Route::post('/confirmation',[\App\Http\Controllers\api\admin\indexController::class,'confirmation']);
         Route::post('/working-hour-store',[\App\Http\Controllers\api\admin\workingHourController::class,'workingHourStore']);
         Route::get('/working-hour-list',[\App\Http\Controllers\api\admin\workingHourController::class,'getWorkingList']);
+        Route::post('/appointment-note-store',[indexController::class,'appointmentNoteStore']);
 
 
 

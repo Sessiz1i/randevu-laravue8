@@ -56,7 +56,8 @@ class ReminderTask extends Command
                     'name'=> $v['fullName'],
                     'email'=> $v['email'],
                     'date'=> $v['date'],
-                    'time'=> WorkingHour::whereId($v['workingHour'])->value('hours')
+                    'time'=> WorkingHour::whereId($v['workingHour'])->value('hours'),
+                    'code' => $v['code']
                 ];
                 try
                 {

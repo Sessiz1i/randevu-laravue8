@@ -19,10 +19,12 @@ class CreateAppointmentsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->date('date');
-            $table->integer('workingHour');
+            $table->string('workingHour');
             $table->text('text')->nullable();
             $table->integer('notification_type')->default(0);
             $table->integer('isActive')->default(0);
+            $table->integer('isSend')->default(0);
+            $table->string('code');
             $table->timestamps();
         });
     }

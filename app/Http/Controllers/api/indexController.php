@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WorkingHour;
 use App\Models\Appointment;
+use App\Models\AppointmentNote;
 
 class indexController extends Controller
 {
@@ -19,28 +20,14 @@ class indexController extends Controller
         foreach ($hours as $hour)
         {
             $control = Appointment::where('date', $date)->where('workingHour', $hour['hours'])->where('isActive', '<', 2)->count();
-
             $exp = explode(' - ', $hour['hours']);
             $nowTime = date('H:i');
-            if ($control === 0)
-            {
-                if ($date == $today)
-                {
-                    if ($exp[0] > $nowTime)
-                    {
-                        $hour['isActive'] = true;
-                    }
-                    else
-                    {
-                        $hour['isActive'] = false;
-                    }
-                }
-                else
-                {
-                    $hour['isActive'] = true;
-                }
 
-            }
+           if ($control === 0 && $date === $today) {
+               $exp[0] > $nowTime ? $hour['isActive'] = true : $hour['isActive'] = false;
+           }else{
+               ($control === 0 && $date !== $today) ? $hour['isActive'] = true : $hour['isActive'] = false;
+           }
 
 
             $returnArray[] = $hour;
@@ -61,6 +48,7 @@ class indexController extends Controller
         }
         else
         {
+            $data['code'] = substr(bcrypt(uniqid()), 7, 10);
             $create = Appointment::create($data);
             $create->save();
             if ($create)
@@ -75,4 +63,31 @@ class indexController extends Controller
         }
         return response()->json($returnArray);
     }
+
+    public function appointmentNoteStore(Request $request)
+    {
+        if ($request['text'])
+        {
+            AppointmentNote::create($request->post());
+        }
+        $notes = AppointmentNote::where('appointmentId', $request['appointmentId'])->get();
+        return response()->json($notes);
+    }
+
+    public function appointmentDetail(Request $request)
+    {
+        $retunArray = Appointment::where('code', $request->code)->first();
+
+        if (!$retunArray)
+        {
+            $retunArray['status'] = false;
+            $retunArray['message'] = "Girmiş olduğunuz koda ait randevu bulunmamaktadır.";
+        }else{
+            $retunArray['status'] = true;
+            $retunArray['note'] = AppointmentNote::where('appointmentId',$retunArray->id)->orderBy('updated_at','desc')->get();
+        }
+        return response()->json($retunArray);
+    }
+
 }
+

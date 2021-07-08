@@ -37,6 +37,8 @@ Vue.use(VueMask)
 Vue.component('pagination', require('laravel-vue-pagination'));
 // Index Component
 Vue.component('randevu-index',require('./components/front/RandevuForm').default);
+Vue.component('randevu-detail',require('./components/front/RandevuDetail').default);
+
 // Admin Component
 Vue.component('working-item',require('./components/admin/AdminWorkingItem').default);
 Vue.component('admin-index',require('./components/admin/Index').default);

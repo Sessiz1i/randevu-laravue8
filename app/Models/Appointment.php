@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 
 class Appointment extends Model
 {
     use HasFactory;
-    protected $appends=['hour'];
+
+    protected $appends = ['hour'];
 
     protected $guarded  = [];
     protected $fillable = [];
@@ -18,8 +20,11 @@ class Appointment extends Model
     {
         return WorkingHour::whereId($this->workingHour)->value('hours');
     }
-    public function hours(){
-        return $this->hasOne(WorkingHour::class,'id','workingHour');
+
+    public function hours()
+    {
+        return $this->hasOne(WorkingHour::class, 'id', 'workingHour');
     }
+
 
 }

@@ -15,6 +15,8 @@ class CreateAppointmentNotesTable extends Migration
     {
         Schema::create('appointment_notes', function (Blueprint $table) {
             $table->id();
+            $table->integer('appointmentId');
+            $table->text('text');
             $table->timestamps();
         });
     }

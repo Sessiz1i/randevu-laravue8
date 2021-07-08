@@ -41,8 +41,9 @@
                 <ul class="navbar-nav mr-auto">
 
                     @guest
-
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('detail') }}">{{ __('Randevu Sorgulama') }}</a>
+                        </li>
                     @else
                         @if(Request::is(['/*','*working']))
                             <li class="nav-item">

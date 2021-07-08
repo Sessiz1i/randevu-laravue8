@@ -139,9 +139,8 @@ export default {
     console.log()
   },
   beforeMount() {
-      axios.get(`http://randevu-laravue8.test/api/working-hours`)
-        .then(async res => {
-          console.log(await res,'burda')
+      axios.get(`./api/working-hours`)
+        .then(res => {
           this.workingHours = res.data
         })
         .catch(err => console.log(err))
@@ -150,7 +149,7 @@ export default {
     store() {
       this.feedbacks = [];
       if (this.notification_type && this.name && this.email && this.validateEmail(this.email) && this.phone && this.workingHour) {
-        axios.post('http://randevu-laravue8.test/api/appointment-store', {
+        axios.post('./api/appointment-store', {
           fullName: this.name,
           email: this.email,
           phone: this.phone,
@@ -159,7 +158,6 @@ export default {
           notification_type: this.notification_type,
           date: this.date
         }).then(res => {
-
           if (res.data.status === false) {
             this.feedbacks.push({code: "error", message: res.data.message})
           } else {
@@ -168,7 +166,7 @@ export default {
             socket.emit('new_appointment_create')
 
             this.complateForm = false
-            axios.get(`http://randevu-laravue8.test/api/working-hours`)
+            axios.get(`./api/working-hours`)
                 .then(res => {
                   this.workingHours = res.data
                 }).catch(err => console.log(err))
@@ -195,7 +193,7 @@ export default {
       }
     },
     selectDate() {
-      axios.get(`http://randevu-laravue8.test/api/working-hours/${this.date}`)
+      axios.get(`./api/working-hours/${this.date}`)
           .then(res => {
             this.workingHours = res.data
           }).catch(err => console.log(err))

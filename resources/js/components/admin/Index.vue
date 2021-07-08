@@ -33,11 +33,6 @@
       </div>
 
     </div>
-    <!--    &lt;!&ndash; Button trigger modal &ndash;&gt;
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          Launch demo modal
-        </button>-->
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
       <div class="modal-dialog modal-dialog-centered">
@@ -50,36 +45,47 @@
           </div>
           <div class="modal-body">
             <div class="input-group">
-              <div class="col-2"><span>İsim</span></div>
-              <div class="col-8"><span>: {{ modalItem.fullName }}</span></div>
+              <div class="col-3"><span>İsim</span></div>
+              <div class="col-9"><span>: {{ modalItem.fullName }}</span></div>
             </div>
             <div class="input-group">
-              <div class="col-2"><span>Telefon</span></div>
-              <div class="col-8"><span>: {{ modalItem.phone }}</span></div>
+              <div class="col-3"><span>Telefon</span></div>
+              <div class="col-9"><span>: {{ modalItem.phone }}</span></div>
             </div>
             <div class="input-group">
-              <div class="col-2"><span>Email</span></div>
-              <div class="col-8"><span>: {{ modalItem.email }}</span></div>
+              <div class="col-3"><span>Email</span></div>
+              <div class="col-9"><span>: {{ modalItem.email }}</span></div>
             </div>
             <div class="input-group">
-              <div class="col-2"><span>Tarih</span></div>
-              <div class="col-8"><span>: {{ modalItem.date }}</span></div>
+              <div class="col-3"><span>Tarih</span></div>
+              <div class="col-9"><span>: {{ modalItem.date }}</span></div>
             </div>
             <div class="input-group">
-              <div class="col-2"><span>Saat</span></div>
-              <div class="col-8"><span>: {{ modalItem.workingHour }}</span></div>
+              <div class="col-3"><span>Saat</span></div>
+              <div class="col-9"><span>: {{ modalItem.workingHour }}</span></div>
             </div>
             <div class="input-group">
-              <div class="col-2"><span>Bildirim</span></div>
-              <div class="col-8">
+              <div class="col-3"><span>Bildirim</span></div>
+              <div class="col-9">
                 <span v-if="modalItem.notification_type === 0">: SMS</span>
                 <span v-if="modalItem.notification_type === 1">: Email</span>
+              </div>
+            </div>
+            <div class="input-group" v-for="(note,i) in modalNote" :key="i">
+              <div class="col-3"><span>Not {{ i + 1 }} </span></div>
+              <div class="col-9">
+                <span>: {{ note.text }}</span>
+              </div>
+            </div>
+            <div class="col-md-12 mt-2">
+              <div class="form-group">
+                <textarea type="date" v-model="text" rows="5" class="form-control" placeholder="Not Ekle..."></textarea>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button @click="addNote(modalItem.id)" type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -96,6 +102,8 @@ export default {
   props: ['item'],
   data() {
     return {
+      text: '',
+      modalNote: [],
       modalItem: [],
       waiting: {
         data: []
@@ -123,6 +131,16 @@ export default {
 
   },
   methods: {
+    addNote(id) {
+      axios.post('./api/admin/appointment-note-store', {
+        appointmentId: id,
+        text: this.text
+      }).then(res => {
+        this.text = ''
+        this.modalNote = res.data
+      }).catch(err => console.log(err))
+
+    },
     getData(page) {
       if (typeof page === 'undefined') {
         page = 1
@@ -144,9 +162,9 @@ export default {
           .catch(err => console.log(err))
     },
     openModal(item) {
-      console.log(item)
+      this.addNote(item.id)
       this.modalItem = item
-    }
+    },
   }
 }
 </script>

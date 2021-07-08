@@ -15,12 +15,16 @@ use App\Http\Controllers\admin\indexController;
 |
 */
 
-Route::get('/',[App\Http\Controllers\front\homeController::class,'index']);
 Route::group(['prefix' => 'cron',], function (){
-Route::get('/reminder',function (){
-    Artisan::call('Reminder:Start');
+    Route::get('/reminder',function (){
+        Artisan::call('Reminder:Start');
+    });
 });
-});
+
+Route::get('/',[App\Http\Controllers\front\homeController::class,'index']);
+Route::get('/appointment-detail',[App\Http\Controllers\front\homeController::class,'appointmentDetail'])->name('detail');
+
+
 
 Auth::routes();
 
